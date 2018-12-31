@@ -23,13 +23,13 @@ export default class IndexPage extends React.Component {
                   {post.title}
                 </Link>
                 <span> &bull; </span>
-                <small>
-                  {post.date} - posted by{' '}
-                  <Link to={`/author/${post.author.slug}`}>
-                    {post.author.name}
-                  </Link>
-                </small>
+                <small>{post.date}</small>
               </p>
+              {post.jetpack_featured_media_url ? (
+                <div>
+                  <img src={post.jetpack_featured_media_url} />
+                </div>
+              ) : null}
               <div>
                 <div
                   dangerouslySetInnerHTML={{
@@ -57,14 +57,8 @@ export const pageQuery = graphql`
   fragment PostListFields on wordpress__POST {
     id
     title
+    jetpack_featured_media_url
     excerpt
-    author {
-      name
-      slug
-      avatar_urls {
-        wordpress_48
-      }
-    }
     date(formatString: "MMMM DD, YYYY")
     slug
   }

@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 module.exports = {
   siteMetadata: {
     title: 'Gatsby + WordPress Starter',
@@ -6,20 +8,19 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sass',
     {
-      resolve: 'gatsby-source-wordpress',
+      resolve: "gatsby-source-wordpress",
       options: {
-        // The base url to your WP site.
-        baseUrl: 'wpdemo.gatsbycentral.com',
-        // WP.com sites set to true, WP.org set to false
-        hostingWPCOM: false,
-        // The protocol. This can be http or https.
-        protocol: 'https',
-        // Use 'Advanced Custom Fields' Wordpress plugin
+        baseUrl: process.env.WPCOM_BASE_URL,
+        protocol: "https",
+        hostingWPCOM: true,
         useACF: false,
-        auth: {},
-        // Set to true to debug endpoints on 'gatsby build'
-        verboseOutput: false,
-      },
+        auth: {
+          wpcom_app_clientSecret: process.env.WPCOM_APP_CLIENTSECRET,
+          wpcom_app_clientId: process.env.WPCOM_APP_CLIENTID,
+          wpcom_user: process.env.WPCOM_USER,
+          wpcom_pass: process.env.WPCOM_PASS
+        }
+      }
     },
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
